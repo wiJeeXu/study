@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width= , initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+      Function.prototype.myBind = function(context) {
+        const self = this
+        const args1 = [...arguments].slice(1)
+        const bindFn = function() {
+          const args2 = [...arguments]
+          return self.apply(this instanceof bindFn ? this : context, args1.concat(args2))
+        }
+        function proFn() {}
+        proFn.prototype = self.prototype
+        bindFn.prototype = new proFn()
+        return bindFn
+      }
+
+    </script>
+</body>
+</html>

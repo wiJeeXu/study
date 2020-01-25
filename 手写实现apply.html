@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+       Function.prototype.myApply = function(context, args) {
+          context = Object(context) || window
+          context.fn = this
+          let result = ''
+          if (!args) {
+            result = context.fn()
+          } else {
+            result = context.fn(...args)
+          }
+          delete context.fn
+          return result
+       }
+       let obj = {
+         value: 'value'
+       }
+       function fn(name, age) {
+         return {
+           value: this.value,
+           name: name,
+           age: age
+         }
+       }
+       console.log(fn.myApply(obj, ['xwj', 18]))
+    </script>
+</body>
+</html>
